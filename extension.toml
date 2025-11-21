@@ -1,0 +1,17 @@
+id = "cds-lsp"
+name = "cds-lsp"
+description = "CDS LSP for Zed"
+version = "0.0.1"
+schema_version = 1
+authors = ["Konrad Koschel"]
+repository = "https://github.com/doxblek/zed-cds-lsp"
+
+languages = ["languages/cap_cds"]
+
+[language_servers.cap_cds]
+name = "cap_cds"
+languages = ["CAP CDS"]
+
+[grammars.cds]
+repository = "https://github.com/cap-js-community/tree-sitter-cds"
+rev = "b28847b982be1b0a2c680962817a084785cd51ea"

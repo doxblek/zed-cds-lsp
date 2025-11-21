@@ -1,0 +1,4 @@
+name = "CAP CDS"
+grammar = "cds"
+path_suffixes = ["cds"]
+line_comments = ["// "]
