@@ -34,7 +34,15 @@ impl ZedCdsLspExtension {
                 language_server_id,
                 &zed::LanguageServerInstallationStatus::Downloading,
             );
-            zed::npm_install_package(Self::PACKAGE_NAME, &version)?;
+            let install_package_result = zed::npm_install_package(Self::PACKAGE_NAME, &version);
+
+            // fallback implmentation to respect user's npm config, if the above fails.
+            if let Err(_err) = install_package_result {
+                // Retry with @latest tag, which respects npm config and may succeed.
+                println!("Failed to install language server `{}` version `{}`, retrying with `latest` tag", Self::PACKAGE_NAME, version);
+                zed::npm_install_package(Self::PACKAGE_NAME, "latest")?;
+            }
+
             if !self.server_exists() {
                 return Err(format!(
                     "Failed to install language server `{}`",
